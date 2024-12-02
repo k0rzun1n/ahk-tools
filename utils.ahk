@@ -54,24 +54,23 @@ ToolTipTimed(Text?, Timeout := 3000, x?, y?, WhichToolTip?) {
 ; )
 ; ToolTipFollow("qweqwewqe",2000,)
 
+
 class CircularBuf {
     __New(count) {
         this.buf := []
         this.buf.Default := 0
         this.buf.Length := count
-        this.0b_start_id := 0 ;0-based start id
-        this.last := 0
+        this.start := 1
     }
     Length => this.buf.Length
-    getFirst() => this.buf[1 + this.0b_start_id]
-    getLast() => this.last
+    getFirst() => this.buf[this.start]
     setNext(val) {
-        this.last := this.buf[1 + this.0b_start_id] := val
-        this.0b_start_id := Mod(1 + this.0b_start_id, this.buf.Length)
+        this.buf[this.start] := val
+        this.start := Mod1(1 + this.start, this.Length)
         return val
     }
-    ;n before last, 0 is equivalent to getLast
-    getNB4Last(n) => this.buf[Mod1(this.0b_start_id - n + this.buf.Length, this.buf.Length)]
+    ;n before last, 0 is last
+    getNB4Last(n) => this.buf[Mod1(this.start - 1 - n + this.Length, this.Length)]
 }
 Mod1(x, div) => 1 + Mod(x - 1, div)
 
