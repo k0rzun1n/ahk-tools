@@ -92,6 +92,3 @@ Enter
 <kbd>Forward+Right</kbd> 
 AltTab
 
-
-[[qwerty]]
-
