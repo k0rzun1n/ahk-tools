@@ -38,10 +38,11 @@ mn := 8 ;minimum speed
 mx := mn * mult * mult * mult ;maximum speed
 spd := mn * mult ;speed|sensitivity
 
+; 6::ToolTipTimed capsOn
 #HotIf capsOn ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-*1:: global spd := 1
-*2:: global spd := mn * mult
+*1:: global spd := 1 ;pixel hunting
+*2:: global spd := mn * mult ;default
 *3:: global spd := 1150 ;from the top lands on fullscreen YT timeline
 *q:: global spd := max(mn, spd / mult) ;reduce speed
 *e:: global spd := min(mx, spd * mult) ;increase speed
@@ -52,7 +53,17 @@ spd := mn * mult ;speed|sensitivity
 9:: Move2Window(0.5, 1, 0, -79) ;bottom center, fullscreen YT timeline
 0:: Move2Window(1, 0, -32, 32) ;top right, close button
 
+RunAndRefocus(name){
+    Run name
+    Sleep 300
+    Send "!{Esc}"
+}
 ; 5:: Run "pent.ahk" ;draw a shape
+Space & 5:: RunAndRefocus("numrow-F.ahk") 
+Space & 6:: RunAndRefocus("jkl;-arrows.ahk") 
+; fullScriptPath := A_ScriptDir "\" "jkl;-arrows.ahk"
+; DetectHiddenWindows("On") 
+; 6::WinClose(fullScriptPath " ahk_class AutoHotkey")
 
 w::^+z  ;redo
 z::^z   ;undo
