@@ -12,12 +12,11 @@ XButton1 & LButton::^+Tab
 XButton2 & WheelUp::^WheelUp
 XButton2 & WheelDown::^WheelDown
 
-RButton & XButton2::Space
-RButton & XButton1::Enter
+RButton & XButton2::Enter
+RButton & XButton1::Space
 
 XButton1 & XButton2::!F4
-; ToolTipTimed("XB1 & XB2", 1000)
-XButton2 & XButton1:: ToolTipTimed("XB2 & XB1", 1000)
+XButton2 & XButton1:: Send("^+{Esc}")
 
 ;prevent context menu on &RB
 #HotIf !(GKSP("XButton2") || GKSP("LButton") || GKSP("MButton"))
@@ -31,19 +30,16 @@ RButton::^v
 #HotIf
 RButton & LButton::^c
 
-global mw_pos := [[0.95, 0.95], [0.975, 0.04], [0.05, 0.05], [0.5, 0.5], [0.05, 0.95]]
-global mw_pl := mw_pos.Length
-global mw_i := 0 
-MButton & WheelUp:: {
-    global mw_pos
-    global mw_i
-    Move2Window(mw_pos[1 + mw_i := Mod(mw_i + 1, mw_pl)]*)
-}
-MButton & WheelDown:: {
-    global mw_pos
-    global mw_i
-    Move2Window(mw_pos[1 + mw_i := Mod(mw_i - 1 + mw_pl, mw_pl)]*)
-}
+;Youtube Speed Controls extension
+MButton & XButton1:: Send "!~" ;x5
+XButton1 & MButton:: Send "~" ;x2/x1
+; MButton & WheelUp::   Send "~"
+; MButton & WheelDown:: Send "!~"
+MButton & WheelDown:: Send "{Down}"
+MButton & WheelUp:: Send "{Up}"
+
+MButton & XButton2:: ToolTipTimed("MB & XB2", 1000)
+XButton2 & MButton:: ToolTipTimed("XB2 & MB", 1000)
 
 RButton & WheelUp:: SoundGetVolume() < 42 ? Send("{Volume_Up}") : 0
 RButton & WheelDown:: Send("{Volume_Down}")
@@ -56,13 +52,9 @@ XButton1 & WheelDown::BackSpace
 ; ~MButton & WheelUp:: ToolTipTimed("MB & WUp", 1000)
 ; ~MButton & WheelDown:: ToolTipTimed("MB & WDown", 1000)
 ; RButton & LButton:: ToolTipTimed("RB & LB", 1000)
-RButton & MButton:: ToolTipTimed("RB & MB", 1000)
-MButton & LButton:: ToolTipTimed("MB & LB", 1000)
-MButton & RButton:: ToolTipTimed("MB & RB", 1000)
-MButton & XButton1:: ToolTipTimed("MB & XB1", 1000)
-MButton & XButton2:: ToolTipTimed("MB & XB2", 1000)
-XButton1 & MButton:: ToolTipTimed("XB1 & MB", 1000)
-XButton2 & MButton:: ToolTipTimed("XB2 & MB", 1000)
+MButton & LButton::J   ; Youtube 10 sec back
+MButton & RButton::Right
+RButton & MButton::Left
 
 MButton::MButton
 XButton1::XButton1
