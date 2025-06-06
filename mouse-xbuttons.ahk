@@ -23,8 +23,8 @@ XButton2 & XButton1:: Send("^+{Esc}")
 RButton::RButton
 ;LB&
 #HotIf GKSP("LButton")
-XButton2::^w
-XButton1::^z
+XButton2::^z
+XButton1::^w
 MButton::Esc ;cancel drag
 RButton::^v
 #HotIf
